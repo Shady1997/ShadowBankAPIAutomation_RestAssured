@@ -1,12 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        MAVEN_HOME = '/opt/maven/apache-maven-3.9.0'  // Adjust path to actual install
-        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk'    // Adjust to where JDK 17 is installed
-        PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
-    }
-
     parameters {
         choice(
                 name: 'ENVIRONMENT',
@@ -16,13 +10,9 @@ pipeline {
         choice(
                 name: 'TEST_SUITE',
                 choices: [
-                        'testng.xml',
-                        'smoke-suite.xml',
-                        'regression-suite.xml',
-                        'user-api-suite.xml',
-                        'account-api-suite.xml',
-                        'transaction-api-suite.xml',
-                        'e2e-suite.xml'
+                        'testng.xml', 'smoke-suite.xml', 'regression-suite.xml',
+                        'user-api-suite.xml', 'account-api-suite.xml',
+                        'transaction-api-suite.xml', 'e2e-suite.xml'
                 ],
                 description: 'Test suite to execute'
         )
@@ -44,8 +34,9 @@ pipeline {
     }
 
     environment {
-        MAVEN_HOME = tool 'Maven-3.9.0'
-        JAVA_HOME = tool 'JDK-17'
+        // 🔁 Replace these with actual tool paths if not using Jenkins tool installation
+        MAVEN_HOME = '/opt/maven/apache-maven-3.9.0'
+        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk'
         PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
     }
 
@@ -59,7 +50,7 @@ pipeline {
 
         stage('Setup') {
             steps {
-                echo 'Setting up environment and dependencies...'
+                echo 'Setting up environment and directories...'
                 sh '''
                     mkdir -p logs
                     mkdir -p test-output
@@ -77,18 +68,18 @@ pipeline {
 
         stage('Run Tests') {
             when {
-                expression { !params.SKIP_TESTS }
+                expression { return !params.SKIP_TESTS }
             }
             steps {
-                echo "Running tests on ${params.ENVIRONMENT} environment with suite ${params.TEST_SUITE}"
+                echo "Running tests on ${params.ENVIRONMENT} with suite ${params.TEST_SUITE}"
                 script {
-                    def mavenCommand = "mvn test -Denv=${params.ENVIRONMENT} -DsuiteXmlFile=${params.TEST_SUITE}"
+                    def mavenCmd = "mvn test -Denv=${params.ENVIRONMENT} -DsuiteXmlFile=${params.TEST_SUITE}"
 
                     if (params.PARALLEL_EXECUTION != 'none') {
-                        mavenCommand += " -Dparallel=${params.PARALLEL_EXECUTION} -DthreadCount=${params.THREAD_COUNT}"
+                        mavenCmd += " -Dparallel=${params.PARALLEL_EXECUTION} -DthreadCount=${params.THREAD_COUNT}"
                     }
 
-                    sh mavenCommand
+                    sh mavenCmd
                 }
             }
             post {
@@ -101,7 +92,7 @@ pipeline {
 
         stage('Generate Allure Report') {
             steps {
-                echo 'Generating Allure report...'
+                echo 'Generating Allure Report...'
                 sh 'mvn allure:report'
             }
         }
@@ -121,45 +112,45 @@ pipeline {
         always {
             echo 'Publishing test reports...'
 
-            // ✅ Publish JUnit/TestNG results
-            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+            // TestNG Results
+            publishTestResults testResults: 'target/surefire-reports/*.xml'
 
-            // ✅ Publish Allure reports
+            // Allure Report
             allure([
                     includeProperties: false,
-                    jdk              : '',
-                    properties       : [],
+                    jdk: '',
+                    properties: [],
                     reportBuildPolicy: 'ALWAYS',
-                    results          : [[path: 'target/allure-results']]
+                    results: [[path: 'target/allure-results']]
             ])
 
-            // ✅ Publish ExtentReports (HTML)
+            // ExtentReports (HTML)
             publishHTML([
-                    allowMissing         : false,
+                    allowMissing: false,
                     alwaysLinkToLastBuild: true,
-                    keepAll              : true,
-                    reportDir            : 'test-output',
-                    reportFiles          : '*.html',
-                    reportName           : 'ExtentReports'
+                    keepAll: true,
+                    reportDir: 'test-output',
+                    reportFiles: '*.html',
+                    reportName: 'ExtentReports'
             ])
         }
 
         success {
-            echo 'Pipeline completed successfully!'
+            echo 'Pipeline succeeded.'
             emailext(
                     subject: "✅ Shadow Bank API Tests - SUCCESS - Build #${BUILD_NUMBER}",
                     body: """
-                    <h3>Banking API Test Results</h3>
-                    <p><strong>Environment:</strong> ${params.ENVIRONMENT}</p>
-                    <p><strong>Test Suite:</strong> ${params.TEST_SUITE}</p>
-                    <p><strong>Build Number:</strong> ${BUILD_NUMBER}</p>
-                    <p><strong>Status:</strong> <span style="color: green;">SUCCESS</span></p>
-                    <p><strong>Reports:</strong></p>
-                    <ul>
-                        <li><a href="${BUILD_URL}allure/">Allure Report</a></li>
-                        <li><a href="${BUILD_URL}ExtentReports/">ExtentReports</a></li>
-                        <li><a href="${BUILD_URL}testReport/">TestNG Results</a></li>
-                    </ul>
+                <h3>Banking API Test Results</h3>
+                <p><strong>Environment:</strong> ${params.ENVIRONMENT}</p>
+                <p><strong>Test Suite:</strong> ${params.TEST_SUITE}</p>
+                <p><strong>Build Number:</strong> ${BUILD_NUMBER}</p>
+                <p><strong>Status:</strong> <span style="color: green;">SUCCESS</span></p>
+                <p><strong>Reports:</strong></p>
+                <ul>
+                    <li><a href="${BUILD_URL}allure/">Allure Report</a></li>
+                    <li><a href="${BUILD_URL}ExtentReports/">ExtentReports</a></li>
+                    <li><a href="${BUILD_URL}testReport/">TestNG Results</a></li>
+                </ul>
                 """,
                     mimeType: 'text/html',
                     to: 'shadyahmed.n8n@gmail.com'
@@ -167,22 +158,22 @@ pipeline {
         }
 
         failure {
-            echo 'Pipeline failed!'
+            echo 'Pipeline failed.'
             emailext(
                     subject: "❌ Shadow Bank API Tests - FAILED - Build #${BUILD_NUMBER}",
                     body: """
-                    <h3>Banking API Test Results</h3>
-                    <p><strong>Environment:</strong> ${params.ENVIRONMENT}</p>
-                    <p><strong>Test Suite:</strong> ${params.TEST_SUITE}</p>
-                    <p><strong>Build Number:</strong> ${BUILD_NUMBER}</p>
-                    <p><strong>Status:</strong> <span style="color: red;">FAILED</span></p>
-                    <p><strong>Reports:</strong></p>
-                    <ul>
-                        <li><a href="${BUILD_URL}allure/">Allure Report</a></li>
-                        <li><a href="${BUILD_URL}ExtentReports/">ExtentReports</a></li>
-                        <li><a href="${BUILD_URL}testReport/">TestNG Results</a></li>
-                        <li><a href="${BUILD_URL}console">Console Log</a></li>
-                    </ul>
+                <h3>Banking API Test Results</h3>
+                <p><strong>Environment:</strong> ${params.ENVIRONMENT}</p>
+                <p><strong>Test Suite:</strong> ${params.TEST_SUITE}</p>
+                <p><strong>Build Number:</strong> ${BUILD_NUMBER}</p>
+                <p><strong>Status:</strong> <span style="color: red;">FAILED</span></p>
+                <p><strong>Reports:</strong></p>
+                <ul>
+                    <li><a href="${BUILD_URL}allure/">Allure Report</a></li>
+                    <li><a href="${BUILD_URL}ExtentReports/">ExtentReports</a></li>
+                    <li><a href="${BUILD_URL}testReport/">TestNG Results</a></li>
+                    <li><a href="${BUILD_URL}console">Console Log</a></li>
+                </ul>
                 """,
                     mimeType: 'text/html',
                     to: 'shadyahmed.n8n@gmail.com'
@@ -190,7 +181,7 @@ pipeline {
         }
 
         cleanup {
-            echo 'Cleaning up workspace...'
+            echo 'Cleaning workspace...'
             cleanWs()
         }
     }
