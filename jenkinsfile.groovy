@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven-3.9.0'
+        jdk 'JDK-17'
+    }
+
     parameters {
         choice(
                 name: 'ENVIRONMENT',
@@ -9,7 +14,15 @@ pipeline {
         )
         choice(
                 name: 'TEST_SUITE',
-                choices: ['testng.xml', 'smoke-suite.xml', 'regression-suite.xml', 'user-api-suite.xml', 'account-api-suite.xml', 'transaction-api-suite.xml', 'e2e-suite.xml'],
+                choices: [
+                        'testng.xml',
+                        'smoke-suite.xml',
+                        'regression-suite.xml',
+                        'user-api-suite.xml',
+                        'account-api-suite.xml',
+                        'transaction-api-suite.xml',
+                        'e2e-suite.xml'
+                ],
                 description: 'Test suite to execute'
         )
         choice(
@@ -32,7 +45,7 @@ pipeline {
     environment {
         MAVEN_HOME = tool 'Maven-3.9.0'
         JAVA_HOME = tool 'JDK-17'
-        PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"  // ✅ Combined properly
+        PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
     }
 
     stages {
@@ -63,7 +76,7 @@ pipeline {
 
         stage('Run Tests') {
             when {
-                expression { !params.SKIP_TESTS } // ✅ Fixed
+                expression { !params.SKIP_TESTS }
             }
             steps {
                 echo "Running tests on ${params.ENVIRONMENT} environment with suite ${params.TEST_SUITE}"
@@ -80,14 +93,14 @@ pipeline {
             post {
                 always {
                     echo 'Collecting test results...'
-                    junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml' // ✅ Fixed
+                    junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
                 }
             }
         }
 
         stage('Generate Allure Report') {
             steps {
-                echo 'Generating Allure reports...'
+                echo 'Generating Allure report...'
                 sh 'mvn allure:report'
             }
         }
@@ -107,26 +120,26 @@ pipeline {
         always {
             echo 'Publishing test reports...'
 
-            // Publish TestNG Results
-            publishTestResults testResults: 'target/surefire-reports/*.xml'
+            // ✅ Publish JUnit/TestNG results
+            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
 
-            // Publish Allure Report
+            // ✅ Publish Allure reports
             allure([
                     includeProperties: false,
-                    jdk: '',
-                    properties: [],
+                    jdk              : '',
+                    properties       : [],
                     reportBuildPolicy: 'ALWAYS',
-                    results: [[path: 'target/allure-results']]
+                    results          : [[path: 'target/allure-results']]
             ])
 
-            // Publish HTML Report (ExtentReports)
+            // ✅ Publish ExtentReports (HTML)
             publishHTML([
-                    allowMissing: false,
+                    allowMissing         : false,
                     alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'test-output',
-                    reportFiles: '*.html',
-                    reportName: 'ExtentReports'
+                    keepAll              : true,
+                    reportDir            : 'test-output',
+                    reportFiles          : '*.html',
+                    reportName           : 'ExtentReports'
             ])
         }
 
