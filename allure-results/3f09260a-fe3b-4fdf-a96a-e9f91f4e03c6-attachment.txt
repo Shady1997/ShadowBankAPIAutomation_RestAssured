@@ -1,3 +1,0 @@
-Test: testCreateTransactionFromExcel
-Class: org.banking.tests.TransactionApiTests
-Exception: java.lang.RuntimeException: java.lang.RuntimeException: Excel file not found: transaction-test-data.xlsx

@@ -1,3 +1,0 @@
-Test: testCreateUserFromExcel
-Class: org.banking.tests.UserApiTests
-Exception: java.lang.AssertionError: User creation should return 201 expected [201] but found [400]

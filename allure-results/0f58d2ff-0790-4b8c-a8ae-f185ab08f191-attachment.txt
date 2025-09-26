@@ -1,3 +1,0 @@
-Test: testGetAccountById
-Class: org.banking.tests.AccountApiTests
-Exception: java.lang.AssertionError: Get account should return 200 expected [200] but found [500]

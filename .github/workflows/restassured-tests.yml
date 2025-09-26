@@ -1,88 +1,42 @@
-name: Run RestAssured Tests
+name: Commit index.html to Master
 
 on:
   push:
     branches:
-      - main
-      - master
-  pull_request:
-    branches:
-      - main
       - master
 
 jobs:
-  test:
+  commit-file:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the source code
+      # Step 1: Checkout the repository
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      # Setup Java JDK 17
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'maven'
+      # Step 2: Rename and copy the file
+      - name: Rename and copy index.html to root folder
+        run: |
+          # Ensure the target/chaintest folder exists and contains Index.html
+          if [ -f "target/chaintest/Index.html" ]; then
+            # Rename Index.html to index.html
+            mv target/chaintest/Index.html target/chaintest/index.html
+            # Copy the renamed file to the root folder
+            cp target/chaintest/index.html .
+            echo "File renamed and copied to the root folder"
+          else
+            echo "File target/chaintest/Index.html not found!"
+            exit 1
+          fi
 
-      # Cache Maven dependencies
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+      # Step 3: Commit and push the file using GitHub token
+      - name: Commit and push the file
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add index.html
+          git commit -m "Automated commit: Update index.html"
+          git push origin master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Run the Maven tests
-      - name: Build and run tests
-        run: mvn clean test
-
-      # Upload surefire XML test results
-      - name: Archive test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: target/surefire-reports/*.xml
-
-      # Upload Allure results for report generation
-      - name: Upload Allure results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-results
-          path: target/allure-results
-
-      # Checkout gh-pages branch to get previous history (optional, improves report continuity)
-      - name: Checkout gh-pages branch
-        if: always()
-        uses: actions/checkout@v3
-        with:
-          ref: gh-pages
-          path: gh-pages
-          fetch-depth: 0
-        continue-on-error: true
-
-      # Generate Allure Report using marketplace action
-      - name: Generate Allure Report
-        if: always()
-        uses: simple-elf/allure-report-action@master
-        id: allure-report
-        with:
-          allure_results: target/allure-results
-          allure_report: allure-report
-          gh_pages: gh-pages
-          allure_history: allure-history
-          keep_reports: 20
-
-      # Deploy Allure HTML report to GitHub Pages
-      - name: Deploy Allure Report to GitHub Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: allure-report
-          publish_branch: gh-pages

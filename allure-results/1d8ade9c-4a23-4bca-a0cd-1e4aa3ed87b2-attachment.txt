@@ -1,3 +1,0 @@
-Test: testCompleteAccountLifecycle
-Class: org.banking.tests.E2EApiTests
-Exception: java.lang.NullPointerException: Cannot invoke "io.restassured.specification.RequestSpecification.body(Object)" because "requestSpec" is null

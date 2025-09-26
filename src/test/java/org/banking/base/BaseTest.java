@@ -1,5 +1,6 @@
 package org.banking.base;
 
+import com.aventstack.chaintest.plugins.ChainTestListener;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -13,7 +14,7 @@ import org.testng.annotations.Listeners;
 
 import io.qameta.allure.restassured.AllureRestAssured;
 
-@Listeners({org.banking.listeners.AllureTestListener.class, org.banking.listeners.ExtentTestListener.class})
+@Listeners({org.banking.listeners.AllureTestListener.class, org.banking.listeners.ExtentTestListener.class, ChainTestListener.class})
 public class BaseTest {
 
     protected static final Logger logger = LogManager.getLogger(BaseTest.class);

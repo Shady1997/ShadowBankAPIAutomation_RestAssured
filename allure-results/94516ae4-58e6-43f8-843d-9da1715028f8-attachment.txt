@@ -1,3 +1,0 @@
-Test: testGetAccountById
-Class: org.banking.tests.AccountApiTests
-Exception: java.lang.NullPointerException: Cannot invoke "io.restassured.specification.RequestSpecification.body(Object)" because "requestSpec" is null

@@ -1,3 +1,0 @@
-Test: testCreateAccountWithInvalidData
-Class: org.banking.tests.AccountApiTests
-Exception: java.lang.AssertionError: Invalid data should return 4xx status code expected [true] but found [false]

@@ -1,3 +1,0 @@
-Test: testGetAccountByNumber
-Class: org.banking.tests.AccountApiTests
-Exception: java.lang.AssertionError: Get account by number should return 200 expected [200] but found [500]
