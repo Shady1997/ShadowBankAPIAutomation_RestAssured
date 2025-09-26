@@ -15,9 +15,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout the source code
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Setup Java JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -25,6 +27,7 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
+      # Cache Maven dependencies
       - name: Cache Maven packages
         uses: actions/cache@v3
         with:
@@ -33,9 +36,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      # Run the Maven tests
       - name: Build and run tests
         run: mvn clean test
 
+      # Upload surefire XML test results
       - name: Archive test results
         if: always()
         uses: actions/upload-artifact@v4
@@ -43,16 +48,41 @@ jobs:
           name: test-results
           path: target/surefire-reports/*.xml
 
-      - name: Copy HTML report to publish folder
+      # Upload Allure results for report generation
+      - name: Upload Allure results
         if: always()
-        run: |
-          mkdir -p gh-pages
-          cp target/surefire-reports/emailable-report.html gh-pages/index.html
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: target/allure-results
 
-      - name: Deploy to GitHub Pages
+      # Checkout gh-pages branch to get previous history (optional, improves report continuity)
+      - name: Checkout gh-pages branch
+        if: always()
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          path: gh-pages
+          fetch-depth: 0
+        continue-on-error: true
+
+      # Generate Allure Report using marketplace action
+      - name: Generate Allure Report
+        if: always()
+        uses: simple-elf/allure-report-action@master
+        id: allure-report
+        with:
+          allure_results: target/allure-results
+          allure_report: allure-report
+          gh_pages: gh-pages
+          allure_history: allure-history
+          keep_reports: 20
+
+      # Deploy Allure HTML report to GitHub Pages
+      - name: Deploy Allure Report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./gh-pages
+          publish_dir: allure-report
           publish_branch: gh-pages
