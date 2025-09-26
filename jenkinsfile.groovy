@@ -120,7 +120,7 @@ pipeline {
             echo 'Publishing test reports...'
 
             // TestNG Results
-            publishTestResults testResults: 'target/surefire-reports/*.xml'
+            junit testResults: 'target/surefire-reports/*.xml', allowEmptyResults: true
 
             // Allure Report
             allure([
