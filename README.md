@@ -1,4 +1,4 @@
-# Banking API Test Automation Framework
+# Shadow Bank API Test Automation Framework
 
 ![Shadow Bank API Test Framework](img.png)
 
