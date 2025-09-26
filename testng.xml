@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Banking_API_Test_Suite" verbose="1" parallel="methods" thread-count="3">
+    <parameter name="environment" value="test"/>
+
+    <listeners>
+        <listener class-name="org.banking.listeners.AllureTestListener"/>
+        <listener class-name="org.banking.listeners.ExtentTestListener"/>
+    </listeners>
+
+    <suite-files>
+<!--        <suite-file path="src/test/resources/suites/user-api-suite.xml"/>-->
+        <suite-file path="src/test/resources/suites/account-api-suite.xml"/>
+<!--        <suite-file path="src/test/resources/suites/transaction-api-suite.xml"/>-->
+<!--        <suite-file path="src/test/resources/suites/e2e-suite.xml"/>-->
+    </suite-files>
+</suite>

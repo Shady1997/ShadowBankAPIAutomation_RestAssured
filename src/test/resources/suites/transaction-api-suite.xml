@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Transaction_API_Suite" verbose="1">
+    <parameter name="environment" value="test"/>
+
+    <test name="Transaction_API_Tests" preserve-order="true">
+        <groups>
+            <run>
+                <include name="transaction-api"/>
+                <include name="smoke"/>
+                <include name="regression"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="org.banking.tests.TransactionApiTests">
+                <methods>
+                    <include name="testCreateTransactionWithValidData"/>
+                    <include name="testCreateTransactionWithInvalidData"/>
+                    <include name="testGetTransactionById"/>
+                    <include name="testGetNonExistentTransaction"/>
+                    <include name="testGetAllTransactions"/>
+                    <include name="testGetTransactionsByAccountId"/>
+                    <include name="testGetTransactionByReference"/>
+                    <include name="testCreateTransactionFromExcel"/>
+                    <include name="testTransactionWithInsufficientFunds"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

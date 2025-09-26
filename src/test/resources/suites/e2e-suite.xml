@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="E2E_Test_Suite" verbose="1">
+    <parameter name="environment" value="test"/>
+
+    <test name="E2E_Tests" preserve-order="true">
+        <groups>
+            <run>
+                <include name="e2e"/>
+                <include name="smoke"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="org.banking.tests.E2EApiTests">
+                <methods>
+                    <include name="testCompleteUserAccountTransactionWorkflow"/>
+                    <include name="testUserWithMultipleAccountsAndTransactions"/>
+                    <include name="testCompleteAccountLifecycle"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

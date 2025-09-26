@@ -1,0 +1,3 @@
+Test: testCreateUserWithValidData
+Class: org.banking.tests.UserApiTests
+Exception: java.lang.NullPointerException: Cannot invoke "io.restassured.specification.RequestSpecification.body(Object)" because "requestSpec" is null

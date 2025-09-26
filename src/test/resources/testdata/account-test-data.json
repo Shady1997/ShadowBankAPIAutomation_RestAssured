@@ -1,0 +1,38 @@
+{
+  "account-test-data.json": {
+    "validAccounts": [
+      {
+        "accountType": "CREDIT",
+        "status": "ACTIVE",
+        "balance": 1000.00,
+        "creditLimit": 0.00
+      },
+      {
+        "accountType": "CREDIT",
+        "status": "ACTIVE",
+        "balance": 2500.00,
+        "creditLimit": 500.00
+      },
+      {
+        "accountType": "CREDIT",
+        "status": "INACTIVE",
+        "balance": 5000.00,
+        "creditLimit": 2000.00
+      }
+    ],
+    "invalidAccounts": [
+      {
+        "accountType": "",
+        "status": "ACTIVE",
+        "balance": 1000.00,
+        "creditLimit": 100.00
+      },
+      {
+        "accountType": "INVALID_TYPE",
+        "status": "INACTIVE",
+        "balance": 500.00,
+        "creditLimit": 50.00
+      }
+    ]
+  }
+}

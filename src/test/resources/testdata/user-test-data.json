@@ -1,0 +1,41 @@
+{
+  "user-test-data.json": {
+    "validUsers": [
+      {
+        "username": "john.doe",
+        "email": "john.doe@example.com",
+        "password": "SecurePass123",
+        "fullName": "John Doe",
+        "phoneNumber": "+1-555-0123"
+      },
+      {
+        "username": "jane.smith",
+        "email": "jane.smith@example.com",
+        "password": "SecurePass456",
+        "fullName": "Jane Smith",
+        "phoneNumber": "+1-555-0124"
+      },
+      {
+        "username": "bob.wilson",
+        "email": "bob.wilson@example.com",
+        "password": "SecurePass789",
+        "fullName": "Bob Wilson",
+        "phoneNumber": "+1-555-0125"
+      }
+    ],
+    "invalidUsers": [
+      {
+        "username": "",
+        "email": "invalid-email",
+        "password": "123",
+        "fullName": ""
+      },
+      {
+        "username": "ab",
+        "email": "test@test.com",
+        "password": "validpass",
+        "fullName": "Valid User"
+      }
+    ]
+  }
+}

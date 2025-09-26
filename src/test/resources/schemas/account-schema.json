@@ -1,0 +1,101 @@
+{
+  "account-schema.json": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": [
+      "id",
+      "accountNumber",
+      "accountType",
+      "balance",
+      "currency",
+      "userId",
+      "active"
+    ],
+    "properties": {
+      "id": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "accountNumber": {
+        "type": "string",
+        "pattern": "^[A-Z0-9]{10,20}$"
+      },
+      "accountType": {
+        "type": "string",
+        "enum": [
+          "SAVINGS",
+          "CHECKING",
+          "BUSINESS",
+          "PREMIUM_SAVINGS"
+        ]
+      },
+      "balance": {
+        "type": "number",
+        "minimum": 0
+      },
+      "currency": {
+        "type": "string",
+        "enum": [
+          "USD",
+          "EUR",
+          "GBP"
+        ]
+      },
+      "userId": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "user": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "$ref": "#/definitions/user"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedAt": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "overdraftLimit": {
+        "type": [
+          "number",
+          "null"
+        ],
+        "minimum": 0
+      }
+    },
+    "definitions": {
+      "user": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "additionalProperties": false
+  }
+}

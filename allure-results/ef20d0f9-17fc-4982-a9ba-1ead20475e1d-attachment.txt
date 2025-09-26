@@ -1,0 +1,3 @@
+Test: testGetAllUsers
+Class: org.banking.tests.UserApiTests
+Exception: java.lang.NullPointerException: Cannot invoke "io.restassured.specification.RequestSpecification.when()" because "requestSpec" is null

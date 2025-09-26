@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="User_API_Suite" verbose="1">
+    <parameter name="environment" value="test"/>
+
+    <test name="User_API_Tests" preserve-order="true">
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="user-api"/>-->
+<!--                <include name="smoke"/>-->
+<!--                <include name="regression"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+
+        <classes>
+            <class name="org.banking.tests.UserApiTests">
+                <methods>
+                    <include name="testCreateUserWithValidData"/>
+                    <include name="testCreateUserWithInvalidData"/>
+                    <include name="testGetUserById"/>
+                    <include name="testGetNonExistentUser"/>
+                    <include name="testGetAllUsers"/>
+                    <include name="testUpdateUser"/>
+                    <include name="testDeleteUser"/>
+                    <include name="testGetUserByUsername"/>
+                    <include name="testCreateUserFromExcel"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,3 @@
+Test: testCreateAccountWithValidData
+Class: org.banking.tests.AccountApiTests
+Exception: java.lang.AssertionError: User ID should match expected [82] but found [null]

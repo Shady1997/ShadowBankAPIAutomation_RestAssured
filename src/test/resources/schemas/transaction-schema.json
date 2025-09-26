@@ -1,0 +1,126 @@
+{
+  "transaction-schema.json": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": [
+      "id",
+      "transactionReference",
+      "transactionType",
+      "amount",
+      "currency",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "transactionReference": {
+        "type": "string",
+        "pattern": "^TXN[A-Z0-9]{10,20}$"
+      },
+      "transactionType": {
+        "type": "string",
+        "enum": [
+          "DEPOSIT",
+          "WITHDRAWAL",
+          "TRANSFER"
+        ]
+      },
+      "amount": {
+        "type": "number",
+        "minimum": 0.01
+      },
+      "currency": {
+        "type": "string",
+        "enum": [
+          "USD",
+          "EUR",
+          "GBP"
+        ]
+      },
+      "description": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "maxLength": 500
+      },
+      "fromAccountId": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "minimum": 1
+      },
+      "toAccountId": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "minimum": 1
+      },
+      "fromAccount": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "$ref": "#/definitions/account"
+      },
+      "toAccount": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "$ref": "#/definitions/account"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "PENDING",
+          "COMPLETED",
+          "FAILED",
+          "CANCELLED"
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "completedAt": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "fee": {
+        "type": [
+          "number",
+          "null"
+        ],
+        "minimum": 0
+      }
+    },
+    "definitions": {
+      "account": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "accountType": {
+            "type": "string"
+          },
+          "balance": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "user-list-schema.json": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "items": {
+      "$ref": "user-schema.json"
+    }
+  },
+  "account-list-schema.json": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "items": {
+      "$ref": "account-schema.json"
+    }
+  },
+  "transaction-list-schema.json": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "items": {
+      "$ref": "transaction-schema.json"
+    }
+  }
+}

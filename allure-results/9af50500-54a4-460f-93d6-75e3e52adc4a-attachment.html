@@ -1,0 +1,38 @@
+<div>POST to http://localhost:8083/api/users</div>
+
+<h4>Body</h4>
+<div>
+    <pre class="preformated-text">
+{
+    &quot;username&quot;: &quot;lawerence.batz&quot;,
+    &quot;email&quot;: &quot;sharen.stamm@gmail.com&quot;,
+    &quot;password&quot;: &quot;mhg4gynalzjp&quot;,
+    &quot;firstName&quot;: &quot;Carrol&quot;,
+    &quot;lastName&quot;: &quot;Gaylord&quot;,
+    &quot;phoneNumber&quot;: &quot;1-593-771-6405&quot;,
+    &quot;address&quot;: &quot;2957 Nienow Stream, West Ramonamouth, GA 44547&quot;,
+    &quot;dateOfBirth&quot;: &quot;1990-01-01&quot;
+}    </pre>
+</div>
+
+<h4>Headers</h4>
+<div>
+        <div>Accept: application/json</div>
+        <div>Content-Type: application/json</div>
+</div>
+
+
+
+<h4>Curl</h4>
+<div>
+curl -v -X POST &#39;http://localhost:8083/api/users&#39; -H &#39;Accept: application/json&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;username&quot;: &quot;lawerence.batz&quot;,
+    &quot;email&quot;: &quot;sharen.stamm@gmail.com&quot;,
+    &quot;password&quot;: &quot;mhg4gynalzjp&quot;,
+    &quot;firstName&quot;: &quot;Carrol&quot;,
+    &quot;lastName&quot;: &quot;Gaylord&quot;,
+    &quot;phoneNumber&quot;: &quot;1-593-771-6405&quot;,
+    &quot;address&quot;: &quot;2957 Nienow Stream, West Ramonamouth, GA 44547&quot;,
+    &quot;dateOfBirth&quot;: &quot;1990-01-01&quot;
+}&#39;
+</div>

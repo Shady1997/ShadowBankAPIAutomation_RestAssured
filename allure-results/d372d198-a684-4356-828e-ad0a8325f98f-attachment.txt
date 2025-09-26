@@ -1,0 +1,3 @@
+Test: testCreateUserWithValidData
+Class: org.banking.tests.UserApiTests
+Exception: java.lang.NullPointerException: Cannot invoke "java.lang.Boolean.booleanValue()" because the return value of "org.banking.pojo.User.getActive()" is null

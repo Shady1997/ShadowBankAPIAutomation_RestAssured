@@ -1,0 +1,32 @@
+<div>POST to http://localhost:8083/api/users</div>
+
+<h4>Body</h4>
+<div>
+    <pre class="preformated-text">
+{
+    &quot;username&quot;: &quot;kara.kautzer&quot;,
+    &quot;email&quot;: &quot;bernie.jast@yahoo.com&quot;,
+    &quot;password&quot;: &quot;o7rc8an9cm5b1hpa681&quot;,
+    &quot;fullName&quot;: &quot;Rodrigo Homenick&quot;,
+    &quot;phoneNumber&quot;: &quot;+1234567890&quot;
+}    </pre>
+</div>
+
+<h4>Headers</h4>
+<div>
+        <div>Accept: application/json</div>
+        <div>Content-Type: application/json</div>
+</div>
+
+
+
+<h4>Curl</h4>
+<div>
+curl -v -X POST &#39;http://localhost:8083/api/users&#39; -H &#39;Accept: application/json&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;username&quot;: &quot;kara.kautzer&quot;,
+    &quot;email&quot;: &quot;bernie.jast@yahoo.com&quot;,
+    &quot;password&quot;: &quot;o7rc8an9cm5b1hpa681&quot;,
+    &quot;fullName&quot;: &quot;Rodrigo Homenick&quot;,
+    &quot;phoneNumber&quot;: &quot;+1234567890&quot;
+}&#39;
+</div>

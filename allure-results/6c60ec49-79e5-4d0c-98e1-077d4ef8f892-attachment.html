@@ -1,0 +1,38 @@
+<div>POST to http://localhost:8083/api/api/users</div>
+
+<h4>Body</h4>
+<div>
+    <pre class="preformated-text">
+{
+    &quot;username&quot;: &quot;clotilde.hessel&quot;,
+    &quot;email&quot;: &quot;alena.rice@gmail.com&quot;,
+    &quot;password&quot;: &quot;lvqzw4ycwim4&quot;,
+    &quot;firstName&quot;: &quot;Dorian&quot;,
+    &quot;lastName&quot;: &quot;White&quot;,
+    &quot;phoneNumber&quot;: &quot;330.629.9824 x3031&quot;,
+    &quot;address&quot;: &quot;Apt. 530 7927 Roob Freeway, East Maria, SC 06446&quot;,
+    &quot;dateOfBirth&quot;: &quot;1990-01-01&quot;
+}    </pre>
+</div>
+
+<h4>Headers</h4>
+<div>
+        <div>Accept: application/json</div>
+        <div>Content-Type: application/json</div>
+</div>
+
+
+
+<h4>Curl</h4>
+<div>
+curl -v -X POST &#39;http://localhost:8083/api/api/users&#39; -H &#39;Accept: application/json&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;username&quot;: &quot;clotilde.hessel&quot;,
+    &quot;email&quot;: &quot;alena.rice@gmail.com&quot;,
+    &quot;password&quot;: &quot;lvqzw4ycwim4&quot;,
+    &quot;firstName&quot;: &quot;Dorian&quot;,
+    &quot;lastName&quot;: &quot;White&quot;,
+    &quot;phoneNumber&quot;: &quot;330.629.9824 x3031&quot;,
+    &quot;address&quot;: &quot;Apt. 530 7927 Roob Freeway, East Maria, SC 06446&quot;,
+    &quot;dateOfBirth&quot;: &quot;1990-01-01&quot;
+}&#39;
+</div>

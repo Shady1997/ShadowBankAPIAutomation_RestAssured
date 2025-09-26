@@ -1,0 +1,3 @@
+Test: testGetAllAccounts
+Class: org.banking.tests.AccountApiTests
+Exception: java.lang.AssertionError: Schema validation failed: Schema file not found: account-list-schema.json

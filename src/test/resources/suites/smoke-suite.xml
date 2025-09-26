@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Smoke_Test_Suite" verbose="1" parallel="methods" thread-count="2">
+    <parameter name="environment" value="test"/>
+
+    <test name="Smoke_Tests" preserve-order="false">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+
+        <packages>
+            <package name="org.banking.tests"/>
+        </packages>
+    </test>
+</suite>

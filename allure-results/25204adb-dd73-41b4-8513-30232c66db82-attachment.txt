@@ -1,0 +1,3 @@
+Test: testCreateUserFromExcel
+Class: org.banking.tests.UserApiTests
+Exception: java.lang.RuntimeException: java.lang.RuntimeException: Excel file not found: user-test-data.xlsx

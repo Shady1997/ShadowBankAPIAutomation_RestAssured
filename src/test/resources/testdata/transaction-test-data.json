@@ -1,0 +1,38 @@
+{
+  "transaction-test-data.json": {
+    "validTransactions": [
+      {
+        "transactionType": "DEPOSIT",
+        "amount": 500.00,
+        "currency": "USD",
+        "description": "Initial deposit"
+      },
+      {
+        "transactionType": "WITHDRAWAL",
+        "amount": 200.00,
+        "currency": "USD",
+        "description": "ATM withdrawal"
+      },
+      {
+        "transactionType": "TRANSFER",
+        "amount": 300.00,
+        "currency": "USD",
+        "description": "Transfer to savings"
+      }
+    ],
+    "invalidTransactions": [
+      {
+        "transactionType": "DEPOSIT",
+        "amount": 0.00,
+        "currency": "USD",
+        "description": "Zero amount deposit"
+      },
+      {
+        "transactionType": "WITHDRAWAL",
+        "amount": -100.00,
+        "currency": "USD",
+        "description": "Negative amount withdrawal"
+      }
+    ]
+  }
+}

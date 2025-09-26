@@ -1,0 +1,3 @@
+Test: testCreateAccountWithValidData
+Class: org.banking.tests.AccountApiTests
+Exception: java.lang.AssertionError: Account creation should return 201 expected [201] but found [400]

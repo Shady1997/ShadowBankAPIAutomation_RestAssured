@@ -1,0 +1,1 @@
+{"uuid":"e0dac0ed-085b-4598-af5b-4b3a14508041","name":"org.banking.tests.AccountApiTests","children":["b224060a-204e-44c2-9dc8-bedb8153f197"],"befores":[{"name":"setupClass","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1758870567782,"stop":1758870568979}],"afters":[],"start":1758870567687,"stop":1758870577051}

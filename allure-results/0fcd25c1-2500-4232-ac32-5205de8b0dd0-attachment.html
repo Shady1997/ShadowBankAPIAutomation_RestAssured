@@ -1,0 +1,38 @@
+<div>POST to http://localhost:8083/api/users</div>
+
+<h4>Body</h4>
+<div>
+    <pre class="preformated-text">
+{
+    &quot;username&quot;: &quot;molly.bayer&quot;,
+    &quot;email&quot;: &quot;jonas.larkin@gmail.com&quot;,
+    &quot;password&quot;: &quot;td65km6outojl&quot;,
+    &quot;firstName&quot;: &quot;Judi&quot;,
+    &quot;lastName&quot;: &quot;Schimmel&quot;,
+    &quot;phoneNumber&quot;: &quot;081-546-9244 x413&quot;,
+    &quot;address&quot;: &quot;Apt. 064 772 Toy Circles, West Janie, ND 22004-0235&quot;,
+    &quot;dateOfBirth&quot;: &quot;1990-01-01&quot;
+}    </pre>
+</div>
+
+<h4>Headers</h4>
+<div>
+        <div>Accept: application/json</div>
+        <div>Content-Type: application/json</div>
+</div>
+
+
+
+<h4>Curl</h4>
+<div>
+curl -v -X POST &#39;http://localhost:8083/api/users&#39; -H &#39;Accept: application/json&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;username&quot;: &quot;molly.bayer&quot;,
+    &quot;email&quot;: &quot;jonas.larkin@gmail.com&quot;,
+    &quot;password&quot;: &quot;td65km6outojl&quot;,
+    &quot;firstName&quot;: &quot;Judi&quot;,
+    &quot;lastName&quot;: &quot;Schimmel&quot;,
+    &quot;phoneNumber&quot;: &quot;081-546-9244 x413&quot;,
+    &quot;address&quot;: &quot;Apt. 064 772 Toy Circles, West Janie, ND 22004-0235&quot;,
+    &quot;dateOfBirth&quot;: &quot;1990-01-01&quot;
+}&#39;
+</div>
