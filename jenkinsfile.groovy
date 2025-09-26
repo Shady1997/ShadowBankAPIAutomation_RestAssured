@@ -34,10 +34,10 @@ pipeline {
     }
 
     environment {
-        // Change these to your actual Windows tool paths
-        MAVEN_HOME = 'C:\\Program Files\\Apache\\maven\\apache-maven-3.9.0'
-        JAVA_HOME = 'C:\\Program Files\\Java\\jdk-17'
-        PATH = "${env.JAVA_HOME}\\bin;${env.MAVEN_HOME}\\bin;${env.PATH}"
+        // 🔁 Replace these with actual tool paths if not using Jenkins tool installation
+        MAVEN_HOME = '/opt/maven/apache-maven-3.9.0'
+        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk'
+        PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
     }
 
     stages {
@@ -52,17 +52,17 @@ pipeline {
             steps {
                 echo 'Setting up environment and directories...'
                 bat '''
-                    if not exist logs mkdir logs
-                    if not exist test-output mkdir test-output
-                    if not exist target\\allure-results mkdir target\\allure-results
-                '''
+            if not exist logs mkdir logs
+            if not exist test-output mkdir test-output
+            if not exist target\\allure-results mkdir target\\allure-results
+        '''
             }
         }
 
         stage('Compile') {
             steps {
                 echo 'Compiling project...'
-                bat 'mvn clean compile'
+                bat 'mvn clean verify'
             }
         }
 
@@ -85,7 +85,7 @@ pipeline {
             post {
                 always {
                     echo 'Collecting test results...'
-                    junit allowEmptyResults: true, testResults: 'target\\surefire-reports\\*.xml'
+                    junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
                 }
             }
         }
@@ -100,10 +100,10 @@ pipeline {
         stage('Archive Artifacts') {
             steps {
                 echo 'Archiving test artifacts...'
-                archiveArtifacts artifacts: 'target\\surefire-reports\\**\\*', fingerprint: true, allowEmptyArchive: true
-                archiveArtifacts artifacts: 'test-output\\**\\*', fingerprint: true, allowEmptyArchive: true
-                archiveArtifacts artifacts: 'logs\\**\\*', fingerprint: true, allowEmptyArchive: true
-                archiveArtifacts artifacts: 'target\\site\\allure-maven-plugin\\**\\*', fingerprint: true, allowEmptyArchive: true
+                archiveArtifacts artifacts: 'target/surefire-reports/**/*', fingerprint: true, allowEmptyArchive: true
+                archiveArtifacts artifacts: 'test-output/**/*', fingerprint: true, allowEmptyArchive: true
+                archiveArtifacts artifacts: 'logs/**/*', fingerprint: true, allowEmptyArchive: true
+                archiveArtifacts artifacts: 'target/site/allure-maven-plugin/**/*', fingerprint: true, allowEmptyArchive: true
             }
         }
     }
@@ -113,7 +113,7 @@ pipeline {
             echo 'Publishing test reports...'
 
             // TestNG Results
-            publishTestResults testResults: 'target\\surefire-reports\\*.xml'
+            publishTestResults testResults: 'target/surefire-reports/*.xml'
 
             // Allure Report
             allure([
@@ -121,7 +121,7 @@ pipeline {
                     jdk: '',
                     properties: [],
                     reportBuildPolicy: 'ALWAYS',
-                    results: [[path: 'target\\allure-results']]
+                    results: [[path: 'target/allure-results']]
             ])
 
             // ExtentReports (HTML)
