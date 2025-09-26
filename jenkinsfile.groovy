@@ -44,7 +44,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out source code...'
-                checkout scm
+                git changelog: false, poll: false, url: 'https://github.com/Shady1997/ShadowBankAPIAutomation_RestAssured.git'
             }
         }
 
@@ -62,7 +62,7 @@ pipeline {
         stage('Compile') {
             steps {
                 echo 'Compiling project...'
-                bat 'mvn clean verify'
+                bat 'mvn clean compile'
             }
         }
 
