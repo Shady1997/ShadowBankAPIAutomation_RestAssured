@@ -149,7 +149,7 @@ pipeline {
                     </ul>
                 """,
                     mimeType: 'text/html',
-                    to: 'team@company.com'
+                    to: 'shadyahmed.n8n@gmail.com'
             )
         }
 
@@ -172,7 +172,7 @@ pipeline {
                     </ul>
                 """,
                     mimeType: 'text/html',
-                    to: 'team@company.com'
+                    to: 'shadyahmed.n8n@gmail.com'
             )
         }
 
