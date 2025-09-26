@@ -31,9 +31,8 @@ pipeline {
 
     environment {
         MAVEN_HOME = tool 'Maven-3.9.0'
-        PATH = "${MAVEN_HOME}/bin:${PATH}"
         JAVA_HOME = tool 'JDK-17'
-        PATH = "${JAVA_HOME}/bin:${PATH}"
+        PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"  // ✅ Combined properly
     }
 
     stages {
@@ -64,7 +63,7 @@ pipeline {
 
         stage('Run Tests') {
             when {
-                not { params.SKIP_TESTS }
+                expression { !params.SKIP_TESTS } // ✅ Fixed
             }
             steps {
                 echo "Running tests on ${params.ENVIRONMENT} environment with suite ${params.TEST_SUITE}"
@@ -81,7 +80,7 @@ pipeline {
             post {
                 always {
                     echo 'Collecting test results...'
-                    junit allowEmptyResults: true, testResultsPattern: 'target/surefire-reports/*.xml'
+                    junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml' // ✅ Fixed
                 }
             }
         }
@@ -109,25 +108,25 @@ pipeline {
             echo 'Publishing test reports...'
 
             // Publish TestNG Results
-            publishTestResults testResultsPattern: 'target/surefire-reports/*.xml'
+            publishTestResults testResults: 'target/surefire-reports/*.xml'
 
             // Publish Allure Report
             allure([
                     includeProperties: false,
-                    jdk              : '',
-                    properties       : [],
+                    jdk: '',
+                    properties: [],
                     reportBuildPolicy: 'ALWAYS',
-                    results          : [[path: 'target/allure-results']]
+                    results: [[path: 'target/allure-results']]
             ])
 
             // Publish HTML Report (ExtentReports)
             publishHTML([
-                    allowMissing         : false,
+                    allowMissing: false,
                     alwaysLinkToLastBuild: true,
-                    keepAll              : true,
-                    reportDir            : 'test-output',
-                    reportFiles          : '*.html',
-                    reportName           : 'ExtentReports'
+                    keepAll: true,
+                    reportDir: 'test-output',
+                    reportFiles: '*.html',
+                    reportName: 'ExtentReports'
             ])
         }
 
