@@ -42,3 +42,17 @@ jobs:
         with:
           name: test-results
           path: target/surefire-reports/*.xml
+
+      - name: Copy HTML report to publish folder
+        if: always()
+        run: |
+          mkdir -p gh-pages
+          cp target/surefire-reports/emailable-report.html gh-pages/index.html
+
+      - name: Deploy to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gh-pages
+          publish_branch: gh-pages
