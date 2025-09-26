@@ -59,6 +59,13 @@ pipeline {
             }
         }
 
+        stage('Check JAVA_HOME') {
+            steps {
+                bat 'echo JAVA_HOME is %JAVA_HOME%'
+                bat 'java -version'
+            }
+        }
+
         stage('Compile') {
             steps {
                 echo 'Compiling project...'
