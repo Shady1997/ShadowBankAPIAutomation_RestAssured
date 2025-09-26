@@ -1,9 +1,10 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven-3.9.0'
-        jdk 'JDK-17'
+    environment {
+        MAVEN_HOME = '/opt/maven/apache-maven-3.9.0'  // Adjust path to actual install
+        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk'    // Adjust to where JDK 17 is installed
+        PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
     }
 
     parameters {
