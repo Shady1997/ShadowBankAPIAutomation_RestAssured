@@ -305,6 +305,21 @@ public class TransactionApiTests extends BaseTest {
                 retrievedTransaction.getTransactionReference());
     }
 
+    @Test(retryAnalyzer = RetryAnalyzer.class)
+    @Story("Get Transaction")
+    @Description("Test retrieving non-existent transaction")
+    @Severity(SeverityLevel.NORMAL)
+    public void testGetNonExistentTransaction() {
+        logger.info("Testing get non-existent transaction");
+
+        Response response = TransactionApiService.getTransactionById(requestSpec, 99999L);
+
+        // Assert error status code
+        Assert.assertEquals(response.getStatusCode(), 404, "Non-existent transaction should return 404");
+
+        logger.info("Non-existent transaction request returned expected 404");
+    }
+
     // Helper methods
     private Account createTestAccount() {
         return createTestAccountWithBalance(new BigDecimal("1000.00"));
