@@ -1,5 +1,7 @@
 # Shadow Bank API Test Automation Framework
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 ![Shadow Bank API Test Framework](img.png)
 
 A comprehensive REST Assured test automation framework for Banking API with TestNG, Allure reporting, ExtentReports, schema validation, and extensive data-driven testing capabilities.
