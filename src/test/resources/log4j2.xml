@@ -12,8 +12,8 @@
         </Console>
 
         <!-- File Appender for All Logs -->
-        <RollingFile name="FileAppender" fileName="${LOG_DIR}/banking-api-tests.log"
-                     filePattern="${LOG_DIR}/banking-api-tests-%d{yyyy-MM-dd}-%i.log.gz">
+        <RollingFile name="FileAppender" fileName="${LOG_DIR}/api-tests.log"
+                     filePattern="${LOG_DIR}/api-tests-%d{yyyy-MM-dd}-%i.log.gz">
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="10MB"/>

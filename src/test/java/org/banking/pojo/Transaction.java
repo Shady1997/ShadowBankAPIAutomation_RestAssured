@@ -1,3 +1,9 @@
+/*
+ * Author: Shady Ahmed
+ * Date: 2025-09-27
+ * Project: Mobile Banking API Testing using RestAssured (E2E)
+ * My Linked-in: https://www.linkedin.com/in/shady-ahmed97/.
+ */
 package org.banking.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -50,6 +56,22 @@ public class Transaction {
 
     @JsonProperty("toAccount")
     private Account toAccount;
+
+    @JsonProperty("fromAccountId")
+    public Long getFromAccountId() {
+        if (fromAccount != null) {
+            return fromAccount.getId();
+        }
+        return null;
+    }
+
+    @JsonProperty("getToAccountId")
+    public Long getToAccountId() {
+        if (toAccount != null) {
+            return toAccount.getId();
+        }
+        return null;
+    }
 
     @JsonProperty("status")
     private String status;

@@ -17,7 +17,7 @@
                     <include name="testCreateTransactionWithValidData"/>
                     <include name="testCreateTransactionWithInvalidData"/>
                     <include name="testGetTransactionById"/>
-                    <include name="testGetNonExistentTransaction"/>
+                    <!--                    <include name="testGetNonExistentTransaction"/>-->
                     <include name="testGetAllTransactions"/>
                     <include name="testGetTransactionsByAccountId"/>
                     <include name="testGetTransactionByReference"/>

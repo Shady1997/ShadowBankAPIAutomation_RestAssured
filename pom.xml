@@ -83,6 +83,11 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
 
         <!-- Apache POI for Excel -->
         <dependency>
@@ -144,7 +149,7 @@
                         <!--<release>17</release>-->
                         <fork>true</fork>
                         <compilerArgs>
-                            <arg>--enable-preview</arg>
+                            <!--                            <arg>&#45;&#45;enable-preview</arg>-->
                             <arg>-Xlint:all</arg>
                             <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
                             <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>

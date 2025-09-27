@@ -1,3 +1,9 @@
+/*
+ * Author: Shady Ahmed
+ * Date: 2025-09-27
+ * Project: Mobile Banking API Testing using RestAssured (E2E)
+ * My Linked-in: https://www.linkedin.com/in/shady-ahmed97/.
+ */
 package org.banking.base;
 
 import com.aventstack.chaintest.plugins.ChainTestListener;
@@ -20,7 +26,7 @@ public class BaseTest {
     protected static final Logger logger = LogManager.getLogger(BaseTest.class);
     protected RequestSpecification requestSpec;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setupClass() {
         logger.info("Setting up base configuration...");
 
@@ -37,7 +43,7 @@ public class BaseTest {
         logger.info("Base configuration completed. URL: " + RestAssured.baseURI + ":" + RestAssured.port + RestAssured.basePath);
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setupMethod() {
         logger.info("Initializing request specification...");
 

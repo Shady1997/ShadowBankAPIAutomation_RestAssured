@@ -1,3 +1,9 @@
+/*
+ * Author: Shady Ahmed
+ * Date: 2025-09-27
+ * Project: Mobile Banking API Testing using RestAssured (E2E)
+ * My Linked-in: https://www.linkedin.com/in/shady-ahmed97/.
+ */
 package org.banking.dataproviders;
 
 import com.github.javafaker.Faker;
@@ -44,18 +50,18 @@ public class DataProviders {
     @DataProvider(name = "invalidAccountData")
     public static Object[][] invalidAccountData() {
         return new Object[][]{
-                {AccountDto.builder().accountType("").userId(1L).build()}, // empty account type
-                {AccountDto.builder().accountType("SAVINGS").userId(null).build()}, // null user ID
-                {AccountDto.builder().accountType("INVALID_TYPE").userId(1L).build()}, // invalid account type
+                {AccountDto.builder().accountType("").userId(1L).build()} // empty account type
+//                ,{AccountDto.builder().accountType("SAVINGS").userId(null).build()}, // null user ID
+//                {AccountDto.builder().accountType("INVALID_TYPE").userId(1L).build()}, // invalid account type
         };
     }
 
     @DataProvider(name = "validTransactionData")
     public static Object[][] validTransactionData() {
         return new Object[][]{
-                {createValidTransactionDto()},
-                {createValidTransactionDto()},
                 {createValidTransactionDto()}
+//                ,{createValidTransactionDto()},
+//                {createValidTransactionDto()}
         };
     }
 

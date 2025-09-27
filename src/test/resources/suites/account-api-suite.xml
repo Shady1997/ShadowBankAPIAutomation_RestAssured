@@ -3,27 +3,27 @@
     <parameter name="environment" value="test"/>
 
     <test name="Account_API_Tests" preserve-order="true">
-<!--        <groups>-->
-<!--            <run>-->
-<!--                <include name="account-api"/>-->
-<!--                <include name="smoke"/>-->
-<!--                <include name="regression"/>-->
-<!--            </run>-->
-<!--        </groups>-->
+        <groups>
+            <run>
+                <include name="account-api"/>
+                <include name="smoke"/>
+                <include name="regression"/>
+            </run>
+        </groups>
 
         <classes>
             <class name="org.banking.tests.AccountApiTests">
                 <methods>
                     <include name="testCreateAccountWithValidData"/>
-<!--                    <include name="testCreateAccountWithInvalidData"/>-->
-<!--                    <include name="testGetAccountById"/>-->
-<!--                    <include name="testGetNonExistentAccount"/>-->
-<!--                    <include name="testGetAllAccounts"/>-->
-<!--                    <include name="testGetAccountsByUserId"/>-->
-<!--                    <include name="testUpdateAccount"/>-->
-<!--                    <include name="testDeleteAccount"/>-->
-<!--                    <include name="testGetAccountByNumber"/>-->
-<!--                    <include name="testCreateAccountFromExcel"/>-->
+                    <include name="testCreateAccountWithInvalidData"/>
+                    <include name="testGetAccountById"/>
+                    <include name="testGetNonExistentAccount"/>
+                    <include name="testGetAllAccounts"/>
+                    <include name="testGetAccountsByUserId"/>
+                    <include name="testUpdateAccount"/>
+                    <include name="testDeleteAccount"/>
+                    <include name="testGetAccountByNumber"/>
+                    <include name="testCreateAccountFromExcel"/>
                 </methods>
             </class>
         </classes>

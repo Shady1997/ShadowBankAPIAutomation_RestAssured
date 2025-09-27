@@ -1,3 +1,9 @@
+/*
+ * Author: Shady Ahmed
+ * Date: 2025-09-27
+ * Project: Mobile Banking API Testing using RestAssured (E2E)
+ * My Linked-in: https://www.linkedin.com/in/shady-ahmed97/.
+ */
 package org.banking.services;
 
 import io.qameta.allure.Step;
@@ -10,7 +16,7 @@ import org.banking.dto.TransactionDto;
 public class TransactionApiService {
 
     private static final Logger logger = LogManager.getLogger(TransactionApiService.class);
-    private static final String TRANSACTIONS_ENDPOINT = "/api/transactions";
+    private static final String TRANSACTIONS_ENDPOINT = "/transactions";
 
     @Step("Create new transaction")
     public static Response createTransaction(RequestSpecification requestSpec, TransactionDto transactionDto) {

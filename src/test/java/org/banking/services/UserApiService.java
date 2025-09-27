@@ -1,3 +1,9 @@
+/*
+ * Author: Shady Ahmed
+ * Date: 2025-09-27
+ * Project: Mobile Banking API Testing using RestAssured (E2E)
+ * My Linked-in: https://www.linkedin.com/in/shady-ahmed97/.
+ */
 package org.banking.services;
 
 import io.qameta.allure.Step;
@@ -6,9 +12,7 @@ import io.restassured.specification.RequestSpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.banking.dto.UserDto;
-import org.banking.pojo.User;
 
-import static io.restassured.RestAssured.given;
 
 public class UserApiService {
 

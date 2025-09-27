@@ -3,13 +3,13 @@
     <parameter name="environment" value="test"/>
 
     <test name="User_API_Tests" preserve-order="true">
-<!--        <groups>-->
-<!--            <run>-->
-<!--                <include name="user-api"/>-->
-<!--                <include name="smoke"/>-->
-<!--                <include name="regression"/>-->
-<!--            </run>-->
-<!--        </groups>-->
+        <groups>
+            <run>
+                <include name="user-api"/>
+                <include name="smoke"/>
+                <include name="regression"/>
+            </run>
+        </groups>
 
         <classes>
             <class name="org.banking.tests.UserApiTests">

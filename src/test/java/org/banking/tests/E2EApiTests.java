@@ -1,3 +1,9 @@
+/*
+ * Author: Shady Ahmed
+ * Date: 2025-09-27
+ * Project: Mobile Banking API Testing using RestAssured (E2E)
+ * My Linked-in: https://www.linkedin.com/in/shady-ahmed97/.
+*/
 package org.banking.tests;
 
 import io.qameta.allure.*;
@@ -16,7 +22,6 @@ import org.banking.services.AccountApiService;
 import org.banking.services.TransactionApiService;
 import org.banking.services.UserApiService;
 import org.banking.utils.RetryAnalyzer;
-import org.banking.utils.SchemaValidator;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -30,7 +35,7 @@ public class E2EApiTests extends BaseTest {
     private static final Logger logger = LogManager.getLogger(E2EApiTests.class);
 
     @Test(dataProvider = "e2eTestData", dataProviderClass = DataProviders.class,
-            retryAnalyzer = RetryAnalyzer.class)
+            retryAnalyzer = RetryAnalyzer.class, groups = {"e2e"})
     @Story("Complete Banking Workflow")
     @Description("End-to-end test: Create user, create account, perform transaction")
     @Severity(SeverityLevel.CRITICAL)
@@ -154,7 +159,7 @@ public class E2EApiTests extends BaseTest {
         logger.info("E2E test scenario completed successfully: " + scenarioName);
     }
 
-    @Test(retryAnalyzer = RetryAnalyzer.class)
+    @Test(retryAnalyzer = RetryAnalyzer.class, groups = {"e2e"})
     @Story("Multiple Account Management")
     @Description("Test user with multiple accounts and cross-account transactions")
     @Severity(SeverityLevel.CRITICAL)
@@ -228,7 +233,7 @@ public class E2EApiTests extends BaseTest {
         logger.info("Multi-account E2E test completed successfully");
     }
 
-    @Test(retryAnalyzer = RetryAnalyzer.class)
+    @Test(retryAnalyzer = RetryAnalyzer.class, groups = {"e2e"})
     @Story("Account Lifecycle")
     @Description("Test complete account lifecycle: create, use, update, deactivate")
     @Severity(SeverityLevel.CRITICAL)
@@ -268,7 +273,7 @@ public class E2EApiTests extends BaseTest {
 
         // Step 4: Update Account Information
         AccountDto updateDto = AccountDto.builder()
-                .accountType("PREMIUM_SAVINGS")
+                .accountType("CHECKING")
                 .userId(user.getId())
                 .balance(accountDto.getBalance())
                 .creditLimit(new BigDecimal("1000.00"))
@@ -276,7 +281,7 @@ public class E2EApiTests extends BaseTest {
 
         Response updateResponse = AccountApiService.updateAccount(requestSpec, account.getId(), updateDto);
         Account updatedAccount = updateResponse.as(Account.class);
-        Assert.assertEquals(updatedAccount.getAccountType(), "PREMIUM_SAVINGS",
+        Assert.assertEquals(updatedAccount.getAccountType(), "CHECKING",
                 "Account type should be updated");
 
         // Step 5: Verify Account Still Accessible After Update
